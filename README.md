@@ -1,40 +1,82 @@
-### Documentation is included in the Documentation folder ###
+# SAP Expense Confirmation Automation - UiPath RPA
 
-[REFrameWork Documentation](https://github.com/UiPath/ReFrameWork/blob/master/Documentation/REFramework%20documentation.pdf)
+This RPA project automates the process of confirming expenses in SAP. It includes handling multiple scenarios such as Purchase Order (PO) confirmation, Inscoped expenses, and Expense Import. The automation is designed to run based on specific date rules and excludes weekends.
 
-### REFrameWork Template ###
-**Robotic Enterprise Framework**
+## Project Description
 
-* Built on top of *Transactional Business Process* template
-* Uses *State Machine* layout for the phases of automation project
-* Offers high level logging, exception handling and recovery
-* Keeps external settings in *Config.xlsx* file and Orchestrator assets
-* Pulls credentials from Orchestrator assets and *Windows Credential Manager*
-* Gets transaction data from Orchestrator queue and updates back status
-* Takes screenshots in case of system exceptions
+The automation retrieves expense data, validates it, and processes it into SAP via UI automation. The process includes two operational conditions:
 
+- **W1 (Week 1 Process)**  
+  - Runs on the **15th, 16th, and 17th of each month** (excluding weekends).  
+  - Handles the first cycle of expense confirmation.
 
-### How It Works ###
+- **W2 (Week 2 Process)**  
+  - Runs on the **1st, 2nd, and 3rd of each month** (excluding weekends).  
+  - Handles the second cycle of expense confirmation.
 
-1. **INITIALIZE PROCESS**
- + ./Framework/*InitiAllSettings* - Load configuration data from Config.xlsx file and from assets
- + ./Framework/*GetAppCredential* - Retrieve credentials from Orchestrator assets or local Windows Credential Manager
- + ./Framework/*InitiAllApplications* - Open and login to applications used throughout the process
+The automation will automatically determine whether to execute the W1 or W2 process based on the current date.
 
-2. **GET TRANSACTION DATA**
- + ./Framework/*GetTransactionData* - Fetches transactions from an Orchestrator queue defined by Config("OrchestratorQueueName") or any other configured data source
+## Features
 
-3. **PROCESS TRANSACTION**
- + *Process* - Process trasaction and invoke other workflows related to the process being automated 
- + ./Framework/*SetTransactionStatus* - Updates the status of the processed transaction (Orchestrator transactions by default): Success, Business Rule Exception or System Exception
+- Date-based execution:
+  - **W1 → 15, 16, 17**
+  - **W2 → 1, 2, 3**
+  - Skips weekends automatically
+- Automated SAP processing for:
+  - Purchase Order (PO) Expense
+  - Inscoped Expense
+  - Expense Import
+- Generates Excel output reports
+- Modular workflow design
+- Exception handling with detailed logs and screenshots
 
-4. **END PROCESS**
- + ./Framework/*CloseAllApplications* - Logs out and closes applications used throughout the process
+## Project Structure
 
+| Folder/File                 | Description                                                   |
+|-----------------------------|---------------------------------------------------------------|
+| Main.xaml                   | Main entry point for the SAP Expense Confirmation process     |
+| Modular/                    | Reusable workflows for SAP PO, Inscoped, and Import processes |
+| Framework/                  | REFramework components                                        |
+| Data/Config.xlsx             | Configuration file (SAP, folder paths, etc.)                 |
+| Data/Output/                | Output reports                                                |
+| Screenshots/                | Sample screenshots                                            |
+| Exceptions_Screenshots/     | Error screenshots                                             |
+| project.json                 | UiPath project metadata                                       |
+| README.md                    | Project documentation                                         |
 
-### For New Project ###
+## Process Workflow
 
-1. Check the Config.xlsx file and add/customize any required fields and values
-2. Implement InitiAllApplications.xaml and CloseAllApplicatoins.xaml workflows, linking them in the Config.xlsx fields
-3. Implement GetTransactionData.xaml and SetTransactionStatus.xaml according to the transaction type being used (Orchestrator queues by default)
-4. Implement Process.xaml workflow and invoke other workflows related to the process being automated
+1. **Date Check:**  
+   - The robot checks today's date.  
+   - If today is **15, 16, or 17** → Runs **W1 Process** (if not weekend).  
+   - If today is **1, 2, or 3** → Runs **W2 Process** (if not weekend).  
+   - Otherwise, the process does not run.
+
+2. **Retrieve Expense Data**  
+3. **Validate Data**  
+4. **Process in SAP**  
+   - Expense Import
+   - PO Confirmation
+   - Inscoped Expense
+
+5. **Generate Output Report**  
+6. **Exception Handling with Logs and Screenshots**  
+
+## How to Run
+
+1. Open the project in UiPath Studio.
+2. Configure `Data/Config.xlsx`:
+   - SAP credentials
+   - Folder paths
+3. Run `Main.xaml` manually or deploy via Orchestrator.  
+   - The bot will determine whether it's W1 or W2 based on the current date.
+
+## Exception Handling
+
+- Logs error with screenshot in `Exceptions_Screenshots`.
+- Generates error reports for review.
+
+## Contact
+
+- Email: fadillah650@gmail.com
+- LinkedIn: https://linkedin.com/in/enrico-naufal-fadilla-54338a256
