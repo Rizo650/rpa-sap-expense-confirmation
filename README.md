@@ -1,4 +1,4 @@
-# SAP Expense Confirmation Automation - UiPath RPA
+# SAP Expense Confirmation - UiPath RPA
 
 This RPA project automates the SAP Expense Confirmation process using UiPath. It integrates Excel VBA macros for complex report manipulation and performs automated SAP data input based on dynamic date rules. The solution is designed for reliability, scalability, and accuracy in handling financial data.
 
