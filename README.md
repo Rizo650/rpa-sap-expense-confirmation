@@ -20,10 +20,10 @@ The process includes retrieving raw data, preparing Excel reports using VBA, val
 
 ## Key Features
 
-- **Date-driven execution:**
+- Date-driven execution:
   - **W1:** Runs on 15, 16, 17 (skip weekends)
   - **W2:** Runs on 1, 2, 3 (skip weekends)
-- **VBA-powered Excel manipulation:**
+- VBA-powered Excel manipulation:
   - Cleans raw data
   - Formats reports
   - Transforms datasets for SAP input
@@ -51,9 +51,7 @@ This project relies heavily on VBA (Visual Basic for Applications) scripts to pe
 - Preparing structured reports for SAP input
 
 ### Integration Method:
-- VBA is either:
-  - Embedded within Excel templates (`.xlsm` files)
-  - Or stored externally in `/Data/VBA/` folder
+- VBA is stored externally in `/Data/VBA/` folder
 - Executed using **UiPath’s "Execute Macro"** activity.
 
 ### VBA Requirements:
