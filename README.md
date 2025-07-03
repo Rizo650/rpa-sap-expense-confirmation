@@ -51,7 +51,7 @@ This project relies heavily on VBA (Visual Basic for Applications) scripts to pe
 - Preparing structured reports for SAP input
 
 ### Integration Method:
-- VBA is stored externally in `/Data/VBA/` folder
+- VBA is stored externally in `/Data/Input/` folder
 - Executed using **UiPath’s "Execute Macro"** activity.
 
 ### VBA Requirements:
